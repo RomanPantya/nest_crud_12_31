@@ -1,0 +1,4 @@
+import { OmitType } from '@nestjs/swagger';
+import { FullUserDto } from './full-user.dto';
+
+export class CreateUserDto extends OmitType(FullUserDto, ['id']) {}
