@@ -4,6 +4,6 @@ import { UsersModule } from './users/users.module';
 import { dbConnectionOptions } from 'src/db-connection-option';
 
 @Module({
-  imports: [UsersModule, TypeOrmModule.forRoot(dbConnectionOptions)],
+    imports: [UsersModule, TypeOrmModule.forRoot(dbConnectionOptions)],
 })
 export class AppModule {}
