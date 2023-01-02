@@ -1,7 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { IUser } from "./user.interface";
 
 @Entity('users')
-export class UserEntity {
+export class UserEntity implements IUser{
 @PrimaryGeneratedColumn()
     id!: number;
 
