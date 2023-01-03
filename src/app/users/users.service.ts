@@ -11,8 +11,12 @@ export class UsersService {
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>
     ) {}
-    getOne(id): string {
-        return 'user ' + id;
+    async getOne(id: number): Promise<UserEntity> {
+        return this.usersRepository.findOne({
+            where: {
+                id
+            }
+        });
     }
 
     async getAll(query): Promise<UserEntity[]> {
@@ -27,8 +31,8 @@ export class UsersService {
         return this.usersRepository.save(createUser);
     }
 
-    remove(id: string) {
-        return 'This user was delete: ' + id;
+    async remove(id: number): Promise<any> {
+        return this.usersRepository.delete({id});
     }
 
     update(id: string, updateUser: UpdateUserDto): object {

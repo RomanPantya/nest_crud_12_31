@@ -11,7 +11,7 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { FindOneParams } from 'src/util/findOneParams';
+// import { FindOneParams } from 'src/util/findOneParams';
 import { UserEntity } from 'src/entities/user.entity';
 import { QueryParams } from 'src/util/query-params';
 
@@ -22,8 +22,10 @@ export class UsersController {
   @Get(':id')
     // findOne(@Param('id') id: number) { useGlobalPipes {transform: tru} change string to number
     // findOne(@Param('id', ParseIntPipe) id: number) {
-    findOne(@Param() id: FindOneParams) {
-        return 'this action return a user';
+    // findOne(@Param() id: FindOneParams) {
+    findOne(@Param('id') id: number): Promise<UserEntity> {
+        return this.usersService.getOne(id);
+      
     }
 
   @Get()
@@ -37,7 +39,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string): string {
+  remove(@Param('id') id: number): Promise<any> {
       return this.usersService.remove(id);
   }
 
