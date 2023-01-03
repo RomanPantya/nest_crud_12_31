@@ -35,7 +35,7 @@ export class UsersService {
         return this.usersRepository.delete({id});
     }
 
-    update(id: string, updateUser: UpdateUserDto): object {
-        return { message: `user with id: ${id} was update`, data: updateUser };
+    async update(id: number, updateUser: UpdateUserDto): Promise<any> {
+        return this.usersRepository.update({id}, {name: updateUser.name, age: updateUser.age});
     }
 }
