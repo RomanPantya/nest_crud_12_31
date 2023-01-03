@@ -11,7 +11,7 @@ export class UsersService {
     @InjectRepository(UserEntity)
     private usersRepository: Repository<UserEntity>
     ) {}
-    getOne(id: string): string {
+    getOne(id): string {
         return 'user ' + id;
     }
 
