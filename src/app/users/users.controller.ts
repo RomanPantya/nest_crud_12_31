@@ -6,29 +6,34 @@ import {
     Param,
     Post,
     Put,
+    Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { FindOneParams } from 'src/util/findOneParams';
+import { UserEntity } from 'src/entities/user.entity';
+import { QueryParams } from 'src/util/query-params';
 
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
   @Get(':id')
-    getOne(@Param() id: FindOneParams) {
+    // findOne(@Param('id') id: number) { useGlobalPipes {transform: tru} change string to number
+    // findOne(@Param('id', ParseIntPipe) id: number) {
+    findOne(@Param() id: FindOneParams) {
         return 'this action return a user';
     }
 
   @Get()
-  getAll(): string {
-      return this.usersService.getAll();
+  getAll(@Query() query: QueryParams): Promise<UserEntity[]> {
+      return this.usersService.getAll(query);
   }
 
   @Post()
-  create(@Body() createUser: CreateUserDto) {
-      return 'This action adds a new user';
+  create(@Body() createUser: CreateUserDto): Promise<UserEntity> {
+      return this.usersService.create(createUser);
   }
 
   @Delete(':id')

@@ -15,12 +15,16 @@ export class UsersService {
         return 'user ' + id;
     }
 
-    getAll(): string {
-        return 'Thats all users';
+    async getAll(query): Promise<UserEntity[]> {
+        return this.usersRepository.find({
+            skip: query.skip,
+            take: query.limit
+        });
     }
 
-    create(createUser: CreateUserDto): object {
-        return { message: `This user was create`, data: createUser };
+    async create(createUser: CreateUserDto): Promise<UserEntity> {
+
+        return this.usersRepository.save(createUser);
     }
 
     remove(id: string) {
