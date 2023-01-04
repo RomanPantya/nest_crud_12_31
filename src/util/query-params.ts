@@ -1,10 +1,18 @@
-import { IsNumberString, IsOptional } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { IsNumber, IsOptional, Max, Min } from 'class-validator';
 
 export class QueryParams {
-  @IsNumberString({default: '10'})
+  @IsNumber()
   @IsOptional()
-      limit?: number;
-  @IsNumberString({default: '0'})
+  @Min(1)
+  @Max(10)
+  @Transform(({ value }) => +value)
+      limit = 10;
+
+  @IsNumber()
   @IsOptional()
-      skip?: number;
+  @Min(1)
+  @Max(10)
+  @Transform(({ value }) => +value)
+      skip = 0;
 }
